@@ -1,0 +1,5 @@
+* text=auto eol=lf
+*.xdelta binary
+*.png binary
+*.otf binary
+*.ttf binary
