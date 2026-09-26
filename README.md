@@ -3,7 +3,7 @@
 *Sin and Punishment: Star Successor* (Wii, 일본판 `R2VJ01`) 비공식 한국어 팬 패치입니다.
 대사는 일본어판 원문을 기준으로 번역했습니다.
 
-**제작: arqhive** · **최신 버전: [v1.0](../../releases/tag/v1.0)**
+**제작: arqhive** · **최신 버전: [v1.0.1](../../releases/tag/v1.0.1)**
 
 한식구 카페 하스피님의 한글 패치([원본 글](https://cafe.naver.com/hansicgu/35057))를 활용해 제작했습니다. 번역을 다시 다듬고, 폰트와 자막을 새로 그리고, 그래픽 한글화 범위를 넓혔습니다.
 
@@ -25,11 +25,11 @@
 
 ### 적용 방법
 
-1. [배포 페이지](../../releases/latest)에서 `SinAndPunishment2_KO_v1.0.xdelta`를 받습니다.
+1. [배포 페이지](../../releases/latest)에서 `SinAndPunishment2_KO_v1.0.1.xdelta`를 받습니다.
 2. 일본판 원본 ISO에 패치를 적용합니다. 하스피님 한글판 ISO에 덧씌우는 패치가 아닙니다. xdelta3에서는 다음처럼 실행합니다.
 
    ```
-   xdelta3 -d -s "Tsumi to Batsu - Sora no Koukeisha (Japan).iso" SinAndPunishment2_KO_v1.0.xdelta "Tsumi to Batsu - Sora no Koukeisha (Korean).iso"
+   xdelta3 -d -s "Tsumi to Batsu - Sora no Koukeisha (Japan).iso" SinAndPunishment2_KO_v1.0.1.xdelta "Tsumi to Batsu - Sora no Koukeisha (Korean).iso"
    ```
 
 3. 결과 파일의 확인값을 아래 표와 비교합니다.
@@ -38,13 +38,13 @@
 
 ### 파일 확인값
 
-| 항목 | 원본 일본판 | 패치 적용 결과 (v1.0) |
+| 항목 | 원본 일본판 | 패치 적용 결과 (v1.0.1) |
 |---|---|---|
 | 크기 | 4,699,979,776 바이트 | 4,699,979,776 바이트 |
-| CRC32 | `4780998F` | `B686AB1B` |
-| MD5 | `fd9f83599cb9962e3ba8137b19454c1f` | `ec38ddc271137a5eab30f48a61349349` |
-| SHA-1 | `cf4225060f76f3d8842a63bcdbe00313bb5cc155` | `ffb251ec8c06bf01f910c6153966a5a30081e001` |
-| SHA-256 | `1e9f75a0826902ed0a8cb7094f6e5428ad9619eb485e04e0b4313982a8d60470` | `6f32a42d91167f2a03728d34402539fc0be5f9d06301feae346fd602a31ce28d` |
+| CRC32 | `4780998F` | `513568F0` |
+| MD5 | `fd9f83599cb9962e3ba8137b19454c1f` | `1385aacfd31666150472a42e2918032e` |
+| SHA-1 | `cf4225060f76f3d8842a63bcdbe00313bb5cc155` | `ad19a365dc63410034c58e15ab1fb651a9b6b87c` |
+| SHA-256 | `1e9f75a0826902ed0a8cb7094f6e5428ad9619eb485e04e0b4313982a8d60470` | `a34f7c3e8902c5582c6e273930b14b38f9a7532029663be593522b60c9279928` |
 
 원본 파일명 예: `Tsumi to Batsu - Sora no Koukeisha (Japan).iso`
 
@@ -87,6 +87,7 @@ Windows Git Bash에서는 `PYTHONIOENCODING=utf-8`을 붙이세요.
 - 번역되지 않은 일본어 문자열이 남아 있으면 빌드가 멈춥니다.
 - 원문을 옆에 두고 보려면 `python tools/ja_view.py`를 실행합니다. 게임 텍스트 원문은 원본 `main.dol`에서 읽어 `work/ja/script_with_ja.json`에 씁니다. 자막 원문은 이미지라 직접 옮겨 적은 `work/ja/subs_ja_all.txt`가 있을 때만 붙습니다.
 - 그림 글씨는 [`tools/gfx_stage.py`](tools/gfx_stage.py)(스테이지 이름), [`tools/gfx_strap.py`](tools/gfx_strap.py)(주의 화면), [`tools/gfx_staff.py`](tools/gfx_staff.py)(스태프롤), [`tools/gfx_logo.py`](tools/gfx_logo.py)(타이틀 로고) 안의 문자열을 고칩니다.
+- 타이틀 로고와 Wii 메뉴 배너·아이콘은 [`tools/assets/`](tools/assets)의 완성 PNG를 그대로 넣습니다. 크기를 바꾸지 말고 같은 이름으로 교체하세요. 파일이 없으면 `gfx_logo.py`와 `banner.py`가 코드로 그립니다.
 - 그래픽 전후 비교 이미지는 `python tools/gfx_compare.py work/iso_all/DATA/files/texture.arc work/cmp.png M_BG02`처럼 만듭니다.
 
 ### 폴더 구조
@@ -94,6 +95,7 @@ Windows Git Bash에서는 `PYTHONIOENCODING=utf-8`을 붙이세요.
 ```
 tools/             빌드·패치 도구 (paths.py가 기준 경로와 외부 도구를 찾음)
   fonts/           Pretendard 폰트와 OFL 라이선스
+  assets/          타이틀 로고·Wii 메뉴 배너 완성 이미지
 translation/
   ko.json          번역 (게임 텍스트·컷신 자막, 한국어만)
 docs/

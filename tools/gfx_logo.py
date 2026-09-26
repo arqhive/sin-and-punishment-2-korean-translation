@@ -72,7 +72,14 @@ def gold_field(img):
     return np.clip(field, 0, 255)
 
 
+ASSET = os.path.join(HERE, 'assets', 'TITLE_LOGO.png')   # 완성본이 있으면 그대로 쓴다(2026-09-26 GPT 작업본)
+
+
 def build(arc):
+    if os.path.isfile(ASSET):
+        img = np.asarray(Image.open(ASSET).convert('RGBA'))
+        gxenc.replace(arc, 'TITLE_LOGO', np.ascontiguousarray(img))
+        return
     off, w, h, fmt = gxenc.tex_info(arc, 'TITLE_LOGO')
     img = gxtex.decode(bytes(arc[off:]), w, h, fmt).copy()
     gold = gold_field(img)

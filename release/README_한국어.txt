@@ -1,29 +1,29 @@
-죄와 벌 우주의 후계자 한글패치 v1.0 (Wii / 일본판 기준)
+죄와 벌 우주의 후계자 한글패치 v1.0.1 (Wii / 일본판 기준)
 ========================================================
 
 ■ 준비물
   - 일본판 ISO   Tsumi to Batsu - Sora no Koukeisha (Japan).iso
       CRC32 4780998F / MD5 fd9f83599cb9962e3ba8137b19454c1f
       (WBFS·RVZ 등으로 갖고 계시면 ISO로 변환 후 사용)
-  - 패치 파일     SinAndPunishment2_KO_v1.0.xdelta
+  - 패치 파일     SinAndPunishment2_KO_v1.0.1.xdelta
   - 패치 도구     xdelta3 또는 Delta Patcher 같은 GUI 도구
 
 ■ 적용 방법
   1) Delta Patcher (GUI)
      - Original file: 일본판 ISO
-     - XDelta patch:  SinAndPunishment2_KO_v1.0.xdelta
+     - XDelta patch:  SinAndPunishment2_KO_v1.0.1.xdelta
      - Apply patch 클릭
 
   2) xdelta3 (명령줄)
-     xdelta3 -d -s "Tsumi to Batsu - Sora no Koukeisha (Japan).iso" SinAndPunishment2_KO_v1.0.xdelta "Tsumi to Batsu - Sora no Koukeisha (Korean).iso"
+     xdelta3 -d -s "Tsumi to Batsu - Sora no Koukeisha (Japan).iso" SinAndPunishment2_KO_v1.0.1.xdelta "Tsumi to Batsu - Sora no Koukeisha (Korean).iso"
 
   ※ 일본판 원본에 적용합니다. 하스피님 한글판 ISO에 덧씌우지 마세요.
 
 ■ 결과 파일 확인 (여기와 다르면 원본 ISO가 다른 것입니다)
-  CRC32  B686AB1B
-  MD5    ec38ddc271137a5eab30f48a61349349
-  SHA1   ffb251ec8c06bf01f910c6153966a5a30081e001
-  SHA256 6f32a42d91167f2a03728d34402539fc0be5f9d06301feae346fd602a31ce28d
+  CRC32  513568F0
+  MD5    1385aacfd31666150472a42e2918032e
+  SHA1   ad19a365dc63410034c58e15ab1fb651a9b6b87c
+  SHA256 a34f7c3e8902c5582c6e273930b14b38f9a7532029663be593522b60c9279928
   크기   4,699,979,776 바이트
 
 ■ 한글화 범위

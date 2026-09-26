@@ -82,7 +82,10 @@ def patch_inner(inner, logo):
         for job in JOBS:
             if job[0] == nm:
                 t = bytes(inner[o:o + sz]); w, h, *_ = tpl.info(t)
-                inner[o:o + sz] = write_tpl(t, render(logo, job, (h, w)))
+                asset = os.path.join(HERE, 'assets', nm[:-4] + '.png')   # 완성본이 있으면 그대로 쓴다
+                img = np.asarray(Image.open(asset).convert('RGBA')) if os.path.isfile(asset) else render(logo, job, (h, w))
+                assert img.shape[:2] == (h, w), (nm, img.shape)
+                inner[o:o + sz] = write_tpl(t, np.ascontiguousarray(img))
     return bytes(inner)
 
 
