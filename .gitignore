@@ -12,3 +12,8 @@ tools/bin/
 
 __pycache__/
 *.pyc
+
+# 배포용 패처(릴리즈에만 첨부)
+release/*.zip
+release/SinAndPunishment2_KO_v*/
+release/*.xdelta
