@@ -99,7 +99,7 @@ powershell -ExecutionPolicy Bypass -File patch.ps1 "원본.iso" "결과.wbfs"
 ### 빌드
 
 ```bash
-# 배포용 패처: 빌드 → 바뀐 파일별 차분 + 패처 스크립트 + wit·xdelta3 → release/SinAndPunishment2_KO_v1.0.2.zip
+# 배포용 패처: 빌드 → 바뀐 파일별 차분 + 패처 스크립트 + wit·xdelta3 → release/R2VJ_KPatch_v1.0.2.zip
 python tools/make_patcher.py 1.0.2
 
 # (v1.0.1까지의 방식) 원본 배치를 유지한 ISO와 ISO 통째 xdelta. 특정 원본 ISO에만 맞아 배포에는 쓰지 않음

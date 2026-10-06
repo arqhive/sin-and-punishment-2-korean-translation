@@ -15,5 +15,5 @@ __pycache__/
 
 # 배포용 패처(릴리즈에만 첨부)
 release/*.zip
-release/SinAndPunishment2_KO_v*/
+release/R2VJ_KPatch_v*/
 release/*.xdelta

@@ -3,7 +3,7 @@
 wit·xdelta3 를 한 폴더와 zip 으로 묶는다. ISO 통째 xdelta와 달리 덤프·변환 형태(정본 ISO, WBFS,
 WBFS에서 변환한 ISO 등)가 달라 MD5가 달라도 게임 파일만 같으면 적용된다.
 사용: python tools/make_patcher.py <버전>
-결과: release/SinAndPunishment2_KO_v<버전>/ 과 같은 이름의 .zip (둘 다 git 제외, zip 은 릴리즈에 첨부)"""
+결과: release/R2VJ_KPatch_v<버전>/ 과 같은 이름의 .zip (둘 다 git 제외, zip 은 릴리즈에 첨부)"""
 import hashlib, os, shutil, subprocess, sys, zipfile
 HERE = os.path.dirname(os.path.abspath(__file__)); sys.path.insert(0, HERE)
 import paths
@@ -23,7 +23,7 @@ def main():
     sys.stdout.reconfigure(encoding='utf-8')
     if len(sys.argv) < 2:
         raise SystemExit('사용법: python tools/make_patcher.py <버전>')
-    name = f'SinAndPunishment2_KO_v{sys.argv[1]}'
+    name = f'R2VJ_KPatch_v{sys.argv[1]}'
     rel_dir = os.path.join(ROOT, 'release')
     out = os.path.join(rel_dir, name)
 

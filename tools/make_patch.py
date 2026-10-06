@@ -46,7 +46,7 @@ def main():
     out_iso = os.path.join(WORK, 'SinAndPunishment2_KO.iso')
     inplace.main(out_iso)
     os.makedirs(os.path.join(ROOT, 'release'), exist_ok=True)
-    patch = os.path.join(ROOT, 'release', f'SinAndPunishment2_KO_v{ver}.xdelta')
+    patch = os.path.join(ROOT, 'release', f'R2VJ_KPatch_v{ver}.xdelta')
     jp = paths.jp_iso(); xd = paths.xdelta3()
     rel = lambda p: os.path.relpath(p, ROOT)   # 패치 헤더에 절대경로(사용자 폴더명)가 남지 않게 상대경로로 넘긴다
     print('xdelta 생성 중...')
