@@ -17,3 +17,6 @@ __pycache__/
 release/*.zip
 release/R2VJ_KPatch_v*/
 release/*.xdelta
+
+# 둘기마요: 임베딩 가능·파일 재배포 금지(눈누 라이선스) → 저장소에 넣지 않음
+tools/fonts/dovemayo*

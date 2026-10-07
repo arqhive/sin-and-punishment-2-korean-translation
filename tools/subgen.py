@@ -7,7 +7,15 @@ HERE = os.path.dirname(os.path.abspath(__file__)); ROOT = os.path.dirname(HERE)
 sys.path.insert(0, HERE)
 import subs, narc, fontgen
 
-FONT = os.path.join(HERE, 'fonts', 'Pretendard-SemiBold.otf')
+# 둘기마요는 재배포 조건이 확인되지 않아 저장소에 넣지 않는다(tools/fonts 에 직접 넣거나 PC에 설치).
+FONT_NAME = 'dovemayo_bold.otf'
+FONT = next((p for p in (os.path.join(HERE, 'fonts', FONT_NAME),
+                         os.path.join(os.environ.get('LOCALAPPDATA', ''), 'Microsoft', 'Windows', 'Fonts', FONT_NAME),
+                         os.path.join(os.environ.get('WINDIR', 'C:/Windows'), 'Fonts', FONT_NAME)) if os.path.isfile(p)),
+            os.path.join(HERE, 'fonts', FONT_NAME))
+SLANT = 0.16      # 기울기(tan, 약 9°). 원본 자막 세로획이 가장 곧게 서는 값을 역산(0.15~0.18)
+GAP = '\u2003'    # 원문 전각 공백 자리 표시(글꼴에 이 글자가 없어서 직접 폭을 준다)
+GAP_RATIO = 0.5   # 문장 사이 간격 = 한글 한 글자 폭의 0.5배
 SS = 4
 BASE_PX = 23      # '한' 잉크 높이(원본 자막 가나와 비슷하게)
 MIN_PX = 16
@@ -37,35 +45,46 @@ def _track(txt, i):
     return 0 if i + 1 >= len(txt) or txt[i + 1] in PUNCT else TRACK
 
 
+def _adv(c, f):
+    """글자 진행 폭(확대 단위)."""
+    return f.getlength('한') * GAP_RATIO if c == GAP else f.getlength(c)
+
+
 def line_width(txt, f):
-    return sum(f.getlength(c) / SS + _track(txt, i) for i, c in enumerate(txt))
+    return sum(_adv(c, f) / SS + _track(txt, i) for i, c in enumerate(txt))
 
 
 def draw_line(d, x, y, txt, f):
     for i, c in enumerate(txt):
-        d.text((x, y), c, font=f, fill=255)
-        x += f.getlength(c) + _track(txt, i) * SS
+        if c != GAP:
+            d.text((x, y), c, font=f, fill=255)
+        x += _adv(c, f) + _track(txt, i) * SS
 
 
 def render_sprite(txt, w, h):
     """사각형(w,h) 하나를 IA4용 (I,A) 0~15 배열로 그린다."""
-    txt = txt.replace('   ', ' ')   # 원문 전각 공백 간격 → em 공백
+    txt = txt.replace('   ', GAP)   # 원문 전각 공백 간격
     lines = txt.split('\n')
     px = BASE_PX
-    while px > MIN_PX and max(line_width(l, font(px)) for l in lines) + 6 > w - 2 * MARGIN:
+    while px > MIN_PX and max(line_width(l, font(px)) for l in lines) + SLANT * px + 6 > w - 2 * MARGIN:   # 기울이면 SLANT*px 만큼 넓어진다
         px -= 1
     f = font(px)
     ref = f.getbbox('한')
     ink = (ref[3] - ref[1]) / SS
     W, H = w * SS, h * SS
-    body = Image.new('L', (W, H)); d = ImageDraw.Draw(body)
+    body = Image.new('L', (W, H))
     n = len(lines); gap = ink * 0.5
     top = (h - (n * ink + (n - 1) * gap)) / 2
     for i, l in enumerate(lines):
         lw = line_width(l, f)
         x = (w - lw) / 2
         y = top + i * (ink + gap) + 1.5
-        draw_line(d, x * SS - ref[0], y * SS - ref[1], l, f)
+        layer = Image.new('L', (W, H))
+        draw_line(ImageDraw.Draw(layer), x * SS - ref[0], y * SS - ref[1], l, f)
+        # 줄 가운데 높이를 축으로 오른쪽으로 기울인다(줄마다 따로 해야 가운데 정렬이 유지된다)
+        yc = (y + ink / 2) * SS
+        layer = layer.transform((W, H), Image.AFFINE, (1, SLANT, -SLANT * yc, 0, 1, 0), resample=Image.BICUBIC)
+        body = Image.fromarray(np.maximum(np.asarray(body), np.asarray(layer)))
     b = np.asarray(body, np.float32) / 255
     outline = np.asarray(body.filter(ImageFilter.MaxFilter(4 * SS + 1)), np.float32) / 255   # 약 2px 외곽선
     halo = np.asarray(Image.fromarray((outline * 255).astype(np.uint8)).filter(ImageFilter.GaussianBlur(1.2 * SS)), np.float32) / 255
