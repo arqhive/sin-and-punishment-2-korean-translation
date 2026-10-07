@@ -7,7 +7,8 @@ from PIL import Image, ImageDraw, ImageFont, ImageFilter
 HERE = os.path.dirname(os.path.abspath(__file__)); sys.path.insert(0, HERE)
 import gxenc, gxtex
 
-VF = os.path.join(HERE, 'fonts', 'PretendardVariable.ttf')
+VF = os.path.join(HERE, 'fonts', 'NotoSerifKR-VF.ttf')   # 본명조(Noto Serif KR) 가변
+WEIGHT = 900
 NAMES = {  # (텍스처, 칸 x, 칸 y) : 이름
     ('M_BG02', 0, 391): '탈출', ('M_BG02', 0, 455): '폐허 도시',
     ('M_BG02', 256, 391): '해저동굴', ('M_BG02', 256, 455): '감옥 위성',
@@ -25,7 +26,7 @@ BG = (244, 245, 245)
 def render_name(txt, wmax):
     """괄호 포함 이름 마스크(0~1)를 돌려준다. 높이 BOT-TOP."""
     H = BOT - TOP
-    f = ImageFont.truetype(VF, 60 * SS); f.set_variation_by_axes([900])
+    f = ImageFont.truetype(VF, 60 * SS); f.set_variation_by_axes([WEIGHT])
     ref = f.getbbox('한')
     t = Image.new('L', (int(f.getlength(txt)) + 20 * SS, 90 * SS))
     ImageDraw.Draw(t).text((0, 10 * SS - ref[1]), txt, font=f, fill=255)
