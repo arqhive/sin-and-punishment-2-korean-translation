@@ -63,7 +63,8 @@
 ■ 크레딧
   - 한식구 카페 하스피님의 한글 패치를 활용해 제작했습니다.
     https://cafe.naver.com/hansicgu/35057
-  - 폰트: Pretendard (SIL Open Font License 1.1)
+  - 폰트: 나눔고딕, 본명조(Noto Serif KR), Pretendard (SIL Open Font License 1.1)
+  - 컷신 자막 글꼴: 둘기마요 (자막 이미지에만 사용)
 
 ■ 동봉 도구
   - wit (Wiimms ISO Tools, GPL-2.0, https://wit.wiimm.de/) — bin/wit-gpl-2.0.txt

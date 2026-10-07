@@ -10,7 +10,7 @@
 - 메뉴, 옵션, 튜토리얼, 경고·오류 메시지 등 게임 텍스트 305개를 한글화했습니다.
 - 컷신 자막 270줄을 한글화했습니다. 자막은 이미지라 39장을 새로 그렸습니다.
 - 스테이지 이름, Wii 스트랩·재퍼 주의 화면, 엔딩 스태프롤, 타이틀 로고, Wii 메뉴 배너·아이콘을 한글화했습니다.
-- 한글 폰트는 Pretendard로 원본 글꼴처럼 외곽선과 그림자를 넣어 그렸습니다.
+- 한글 글꼴은 원본 느낌에 맞춰 골랐습니다. 메뉴·설명문은 나눔고딕, 컷신 자막은 둘기마요(원본처럼 기울임), 스테이지 이름은 본명조, 나머지 그래픽은 Pretendard입니다.
 - **파일 단위 패처라 덤프·변환 형태(ISO, WBFS 등)가 달라도 적용되고, 패치 크기는 약 6MB입니다.**
 
 > 이 저장소에는 **게임 데이터(롬·디스크 이미지, 추출한 원문 대사, 그래픽, 스크린샷)가 들어 있지 않습니다.**
@@ -94,7 +94,8 @@ powershell -ExecutionPolicy Bypass -File patch.ps1 "원본.iso" "결과.wbfs"
 - 일본판 ISO. 저장소 루트나 `iso/`에 두거나 환경 변수 `TSUMI2_JP_ISO`로 지정합니다.
 - [Wiimms ISO Tools](https://wit.wiimm.de/)(`wit`). PATH에 두거나 환경 변수 `WIT`로 지정합니다. `tools/bin/`에 풀어 두어도 됩니다.
 - xdelta3 3.1.0. PATH에 두거나 환경 변수 `XDELTA3`로 지정합니다. `tools/bin/xdelta3.exe`에 두어도 됩니다.
-- 폰트(Pretendard)는 `tools/fonts/`에 들어 있습니다.
+- 폰트(나눔고딕, 본명조, Pretendard)는 `tools/fonts/`에 들어 있습니다.
+- 컷신 자막용 둘기마요는 파일 재배포가 금지라 들어 있지 않습니다. [눈누](https://noonnu.cc/font_page/122)에서 받아 PC에 설치하거나 `tools/fonts/dovemayo_bold.otf`로 두세요.
 
 ### 빌드
 
@@ -125,7 +126,7 @@ Windows Git Bash에서는 `PYTHONIOENCODING=utf-8`을 붙이세요.
 ```
 tools/             빌드·패치 도구 (paths.py가 기준 경로와 외부 도구를 찾음)
 patcher/           사용자용 패처 스크립트(패치하기.bat, patch.ps1)
-  fonts/           Pretendard 폰트와 OFL 라이선스
+  fonts/           나눔고딕·본명조·Pretendard 폰트와 OFL 라이선스
   assets/          타이틀 로고·Wii 메뉴 배너 완성 이미지
   bin/             (git 제외) wit, xdelta3
 translation/
@@ -149,7 +150,10 @@ work/              (git 제외) 추출 원본·원문·빌드 결과
 
 - 이 저장소의 도구 코드, 한국어 번역문, 문서: [MIT License](LICENSE) (© 2026 arqhive).
 - 원본 한글 패치: 한식구 카페 하스피님 ([원본 글](https://cafe.naver.com/hansicgu/35057)).
+- 나눔고딕: NAVER, [SIL Open Font License 1.1](tools/fonts/OFL-NanumGothic.txt).
+- 본명조(Noto Serif KR): Google·Adobe, [SIL Open Font License 1.1](tools/fonts/OFL-NotoSerifKR.txt).
 - Pretendard: 길형진, [SIL Open Font License 1.1](tools/fonts/OFL.txt).
+- 둘기마요: 둘기마요, [라이선스](https://noonnu.cc/font_page/122)(판매 외 상업 이용·임베딩 가능, 파일 재배포 금지). 컷신 자막 이미지에만 쓰고 파일은 넣지 않았습니다.
 - 패처에 동봉하는 [wit](https://wit.wiimm.de/)은 GPL-2.0, [xdelta3](https://github.com/jmacd/xdelta)는 Apache-2.0입니다.
 
 ## 면책
