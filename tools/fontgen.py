@@ -9,8 +9,9 @@ ROOT = os.path.dirname(HERE)
 sys.path.insert(0, HERE)
 import textenc
 
-FONT_PATH = os.path.join(HERE, 'fonts', 'Pretendard-SemiBold.otf')
+FONT_PATH = os.path.join(HERE, 'fonts', 'NanumGothic-Bold.ttf')
 SS = 4  # 슈퍼샘플링 배율
+HANGUL_ADV = 24  # 한글 진행 폭(px). 한글은 고정 폭 글꼴이라 잉크 폭으로 붙이면 ㅏ·ㅣ 글자 간격이 들쭉날쭉해진다
 
 
 def parse(d):
@@ -96,7 +97,7 @@ def encode_ia4(I, A):
     return bytes(out)
 
 
-def build(src, dst, hmap, font_path, px=19):
+def build(src, dst, hmap, font_path, px=19, hadv=HANGUL_ADV):
     d = open(src, 'rb').read(); F = parse(d)
     cw, chh, cols = F['cw'], F['ch'], F['cols']
     per = cols * F['rows']; cap = per * len(F['sheets'])
@@ -113,10 +114,16 @@ def build(src, dst, hmap, font_path, px=19):
     used = 0
     for (ch, code), gi in zip(sorted(hmap.items(), key=lambda x: x[1]), free):
         I, A, (left, gw) = render_hangul(ch, font, cw, chh)
+        if left < 1:  # 원본처럼 0열은 비운다(나눔고딕 따·빠의 외곽선 끝이 알파 1/15로 걸치는 정도)
+            assert A[:, 0].max() <= 2, (ch, A[:, 0].max())
+            I[:, 0] = 0; A[:, 0] = 0
+            xs = np.where(A.max(axis=0) > 0)[0]; left, gw = int(xs.min()), int(xs.max() - xs.min() + 1)
         s, r = divmod(gi, per); x = (r % cols) * (cw + 1); y = (r // cols) * (chh + 1)
         F['sheets'][s][0][y:y + chh, x:x + cw] = I
         F['sheets'][s][1][y:y + chh, x:x + cw] = A
-        widths[gi] = (left, gw, left + gw - 1)
+        # 게임은 칸을 펜+left 위치에 그리므로 left 를 원본처럼 1로 통일해야 칸 안 위치(글꼴 설계 위치)가
+        # 그대로 살아난다. 글자 폭은 잉크 끝까지(원본과 같은 규칙), 진행 폭은 한글 고정 폭.
+        widths[gi] = (1, left + gw - 1, hadv)
         newmap[code] = gi; used = max(used, gi + 1)
     # 사용 안 하는 가나/한자 칸은 비운다(깨진 글자가 섞여 보이지 않도록 매핑도 제거)
     nglyph2 = max(used, max(keep) + 1)
