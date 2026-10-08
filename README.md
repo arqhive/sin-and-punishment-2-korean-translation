@@ -3,7 +3,7 @@
 *Sin and Punishment: Star Successor* (Wii, 일본판 `R2VJ01`) 비공식 한국어 팬 패치입니다.
 대사는 일본어판 원문을 기준으로 번역했습니다.
 
-**제작: arqhive** · **최신 버전: [v1.2f](../../releases/tag/v1.2f)** (완성판)
+**제작: arqhive** · **최신 버전: [v1.1f](../../releases/tag/v1.1f)** (완성판)
 
 한식구 카페 하스피님의 한글 패치([원본 글](https://cafe.naver.com/hansicgu/35057))를 활용해 제작했습니다. 번역을 다시 다듬고, 폰트와 자막을 새로 그리고, 그래픽 한글화 범위를 넓혔습니다.
 
@@ -40,7 +40,7 @@
 
 ### 적용 방법
 
-1. [배포 페이지](../../releases/latest)에서 `R2VJ_KPatch_v1.2f.zip`을 받아 압축을 풉니다.
+1. [배포 페이지](../../releases/latest)에서 `R2VJ_KPatch_v1.1f.zip`을 받아 압축을 풉니다.
 2. 원본 이미지(ISO 또는 WBFS)를 `패치하기.bat` 위에 끌어다 놓습니다.
    - 원본을 `패치하기.bat`과 같은 폴더에 넣고 더블클릭해도 됩니다.
    - 폴더에 이미지가 여러 개 있으면 경로를 물어봅니다. 파일을 창에 끌어다 놓고 Enter를 누르세요.
@@ -100,8 +100,8 @@ powershell -ExecutionPolicy Bypass -File patch.ps1 "원본.iso" "결과.wbfs"
 ### 빌드
 
 ```bash
-# 배포용 패처: 빌드 → 바뀐 파일별 차분 + 패처 스크립트 + wit·xdelta3 → release/R2VJ_KPatch_v1.2f.zip
-python tools/make_patcher.py 1.2f
+# 배포용 패처: 빌드 → 바뀐 파일별 차분 + 패처 스크립트 + wit·xdelta3 → release/R2VJ_KPatch_v1.1f.zip
+python tools/make_patcher.py 1.1f
 
 # (v1.0.1까지의 방식) 원본 배치를 유지한 ISO와 ISO 통째 xdelta. 특정 원본 ISO에만 맞아 배포에는 쓰지 않음
 python tools/make_patch.py 1.0.1
