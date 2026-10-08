@@ -42,7 +42,8 @@ def main():
         if a == b:
             continue
         patch = f'{i:03d}.xdelta'
-        subprocess.run([xd, '-e', '-f', '-9', '-S', 'djw', '-s', old, new, os.path.join(out, 'data', patch)], check=True)
+        # -A= : 차분 헤더에 원본·결과 파일 경로(PC 사용자 폴더명)를 남기지 않는다
+        subprocess.run([xd, '-e', '-f', '-9', '-S', 'djw', '-A=', '-s', old, new, os.path.join(out, 'data', patch)], check=True)
         # 모드, 차분 파일, 경로, 원본 MD5, 결과 MD5
         lines.append('\t'.join(('raw', patch, rel, md5(a), md5(b))))
     with open(os.path.join(out, 'data', 'manifest.txt'), 'w', encoding='utf-8', newline='\n') as f:
